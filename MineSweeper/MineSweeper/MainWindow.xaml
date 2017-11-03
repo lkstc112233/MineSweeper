@@ -24,7 +24,7 @@
             <Button Click="ShowSettings">Settings</Button>
         </StackPanel>
         <GroupBox Header="GamePlay" Grid.Row="1">
-            <ContentPresenter Content="{Binding board}">
+            <ContentPresenter IsEnabled="{Binding GameNotOver}" Content="{Binding board}">
                 <ContentPresenter.Resources>
                     <CroppedBitmap x:Key="Unrevealed" Source="{StaticResource All_Source}" SourceRect="2 53 15 15"/>
                     <CroppedBitmap x:Key="Marked" Source="{StaticResource All_Source}" SourceRect="36 53 15 15"/>

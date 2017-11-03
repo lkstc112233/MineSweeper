@@ -9,8 +9,8 @@ namespace MineSweeper
 {
     enum BoardCellOuterStatus
     {
-        Unreveled,
-        Reveled,
+        Unrevealed,
+        Revealed,
         Marked,
     }
 
@@ -51,13 +51,13 @@ namespace MineSweeper
         public int y { get; set; }
         public int mineNeighbors = 0;
         private BoardCellInnerStatus m_innerStatus = BoardCellInnerStatus.Safe;
-        private BoardCellOuterStatus m_outerStatus = BoardCellOuterStatus.Unreveled;
-        
+        private BoardCellOuterStatus m_outerStatus = BoardCellOuterStatus.Unrevealed;
+
         public CellOutlookEnum Outlook
         {
             get
             {
-                if (m_outerStatus == BoardCellOuterStatus.Unreveled)
+                if (m_outerStatus == BoardCellOuterStatus.Unrevealed)
                     return CellOutlookEnum.Unrevealed;
                 if (m_outerStatus == BoardCellOuterStatus.Marked)
                     return CellOutlookEnum.Marked;
@@ -73,6 +73,14 @@ namespace MineSweeper
         {
             get { return m_innerStatus == BoardCellInnerStatus.Mine; }
         }
+        public bool isMarked
+        {
+            get { return m_outerStatus == BoardCellOuterStatus.Marked; }
+        }
+        public bool isRevealed
+        {
+            get { return m_outerStatus == BoardCellOuterStatus.Revealed; }
+        }
 
         public void setMine()
         {
@@ -81,12 +89,12 @@ namespace MineSweeper
 
         public bool reveal()
         {
-            if (m_outerStatus != BoardCellOuterStatus.Unreveled)
+            if (m_outerStatus != BoardCellOuterStatus.Unrevealed)
             {
                 OnPropertyChanged("Outlook");
                 return false;
             }
-            m_outerStatus = BoardCellOuterStatus.Reveled;
+            m_outerStatus = BoardCellOuterStatus.Revealed;
             OnPropertyChanged("Outlook");
             return true;
         }
@@ -95,12 +103,12 @@ namespace MineSweeper
         {
             switch(m_outerStatus)
             {
-                case BoardCellOuterStatus.Unreveled:
+                case BoardCellOuterStatus.Unrevealed:
                     m_outerStatus = BoardCellOuterStatus.Marked;
                     OnPropertyChanged("Outlook");
                     return;
                 case BoardCellOuterStatus.Marked:
-                    m_outerStatus = BoardCellOuterStatus.Unreveled;
+                    m_outerStatus = BoardCellOuterStatus.Unrevealed;
                     OnPropertyChanged("Outlook");
                     return;
                 default:

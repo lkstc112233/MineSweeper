@@ -53,7 +53,13 @@ namespace MineSweeper
 
         private void ClickOnCell(object sender, RoutedEventArgs e)
         {
-            board.Reveal(((sender as Button).Tag as Cell).x, ((sender as Button).Tag as Cell).y);
+            if (!board.Reveal(((sender as Button).Tag as Cell).x, ((sender as Button).Tag as Cell).y))
+            {
+                if (board.CellRemaining != 0)
+                    MessageBox.Show("You Lose!");
+                else
+                    MessageBox.Show("You Win!");
+            }
         }
 
         private void Button_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
