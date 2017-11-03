@@ -25,6 +25,7 @@ namespace MineSweeper
         Mine,
         Marked,
         Unrevealed,
+        Revealed_0,
     }
 
     public class Cell : INotifyPropertyChanged
@@ -42,15 +43,21 @@ namespace MineSweeper
         public int y { get; set; }
         private BoardCellInnerStatus m_innerStatus;
         private BoardCellOuterStatus m_outerStatus;
-
-        private CellOutlookEnum m_Outlook;
+        
         public CellOutlookEnum Outlook
         {
-            get { return m_Outlook; }
-            set
+            get
             {
-                m_Outlook = value;
-                OnPropertyChanged("Outlook");
+                if (m_outerStatus == BoardCellOuterStatus.Unreveled)
+                    return CellOutlookEnum.Unrevealed;
+                if (m_outerStatus == BoardCellOuterStatus.Marked)
+                    return CellOutlookEnum.Marked;
+                if (m_innerStatus == BoardCellInnerStatus.Mine)
+                    return CellOutlookEnum.Mine;
+                if (m_innerStatus == BoardCellInnerStatus.Safe)
+                    // Get Count;
+                    return CellOutlookEnum.Revealed_0;
+                return CellOutlookEnum.Unrevealed;
             }
         }
 
@@ -62,8 +69,12 @@ namespace MineSweeper
         public bool reveal()
         {
             if (m_outerStatus != BoardCellOuterStatus.Unreveled)
+            {
+                OnPropertyChanged("Outlook");
                 return false;
+            }
             m_outerStatus = BoardCellOuterStatus.Reveled;
+            OnPropertyChanged("Outlook");
             return true;
         }
 
@@ -72,9 +83,11 @@ namespace MineSweeper
             switch(m_outerStatus)
             {
                 case BoardCellOuterStatus.Unreveled:
+                    OnPropertyChanged("Outlook");
                     m_outerStatus = BoardCellOuterStatus.Marked;
                     return;
                 case BoardCellOuterStatus.Marked:
+                    OnPropertyChanged("Outlook");
                     m_outerStatus = BoardCellOuterStatus.Unreveled;
                     return;
                 default:
