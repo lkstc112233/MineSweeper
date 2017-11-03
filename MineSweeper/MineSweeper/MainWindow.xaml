@@ -14,9 +14,9 @@
         </Grid.Resources>
         <ContentPresenter Content="{Binding board}">
             <ContentPresenter.Resources>
-                <CroppedBitmap x:Key="Unrevealed" Source="{StaticResource All_Source}" SourceRect="2,53,17,68"/>
-                <CroppedBitmap x:Key="Marked" Source="{StaticResource All_Source}" SourceRect="36,53,51,68"/>
-                <CroppedBitmap x:Key="Mine" Source="{StaticResource All_Source}" SourceRect="87,53,102,68"/>
+                <CroppedBitmap x:Key="Unrevealed" Source="{StaticResource All_Source}" SourceRect="2 53 15 15"/>
+                <CroppedBitmap x:Key="Marked" Source="{StaticResource All_Source}" SourceRect="36 53 15 15"/>
+                <CroppedBitmap x:Key="Mine" Source="{StaticResource All_Source}" SourceRect="87 53 15 15"/>
             </ContentPresenter.Resources>
             <ContentPresenter.ContentTemplate>
                 <DataTemplate>
