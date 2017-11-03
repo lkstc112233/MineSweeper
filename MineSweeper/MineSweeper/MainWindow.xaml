@@ -68,6 +68,14 @@
                                                                 <Image Source="{StaticResource Marked}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Marked}}"/>
                                                                 <Image Source="{StaticResource Mine}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Mine}}"/>
                                                                 <Image Source="{StaticResource Safe_0}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_0}}"/>
+                                                                <Image Source="{StaticResource Safe_1}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_1}}"/>
+                                                                <Image Source="{StaticResource Safe_2}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_2}}"/>
+                                                                <Image Source="{StaticResource Safe_3}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_3}}"/>
+                                                                <Image Source="{StaticResource Safe_4}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_4}}"/>
+                                                                <Image Source="{StaticResource Safe_5}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_5}}"/>
+                                                                <Image Source="{StaticResource Safe_6}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_6}}"/>
+                                                                <Image Source="{StaticResource Safe_7}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_7}}"/>
+                                                                <Image Source="{StaticResource Safe_8}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_8}}"/>
                                                             </Grid>
                                                         </ControlTemplate>
                                                     </Button.Template>
