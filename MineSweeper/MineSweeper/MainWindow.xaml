@@ -7,6 +7,42 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Grid.Resources>
+            <local:DebugConverter x:Key="emptyConverter"/>
+        </Grid.Resources>
+        <ContentPresenter Content="{Binding board}">
+            <ContentPresenter.ContentTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding m_board}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:Cell}">
+                                            <Button Tag="{Binding}" 
+                                                    Click="ClickOnCell"
+                                                    MouseRightButtonUp="Button_MouseRightButtonUp" 
+                                                    MouseRightButtonDown="Button_MouseRightButtonDown" 
+                                                    Padding="7">
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ContentPresenter.ContentTemplate>
+        </ContentPresenter>
     </Grid>
 </Window>

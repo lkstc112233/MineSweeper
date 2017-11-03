@@ -12,7 +12,7 @@ namespace MineSweeper
         int height;
         int mines;
 
-        List<List<Cell>> m_board;
+        public List<List<Cell>> m_board { get; set; }
 
         public Board(int width, int height, int mines)
         {

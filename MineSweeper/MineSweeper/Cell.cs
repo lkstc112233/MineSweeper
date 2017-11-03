@@ -19,7 +19,7 @@ namespace MineSweeper
         Safe,
     }
 
-    class Cell
+    public class Cell
     {
         public Cell(int x, int y)
         {
@@ -27,8 +27,8 @@ namespace MineSweeper
             this.y = y;
         }
 
-        int x;
-        int y;
+        public int x { get; set; }
+        public int y { get; set; }
         private BoardCellInnerStatus m_innerStatus;
         private BoardCellOuterStatus m_outerStatus;
         public bool isMine
