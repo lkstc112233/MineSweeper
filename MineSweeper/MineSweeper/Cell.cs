@@ -21,13 +21,42 @@ namespace MineSweeper
 
     class Cell
     {
+        public Cell(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
         int x;
         int y;
         private BoardCellInnerStatus m_innerStatus;
         private BoardCellOuterStatus m_outerStatus;
-        bool isMine
+        public bool isMine
         {
             get { return m_innerStatus == BoardCellInnerStatus.Mine; }
+        }
+
+        public bool reveal()
+        {
+            if (m_outerStatus != BoardCellOuterStatus.Unreveled)
+                return false;
+            m_outerStatus = BoardCellOuterStatus.Reveled;
+            return true;
+        }
+
+        public void tryMark()
+        {
+            switch(m_outerStatus)
+            {
+                case BoardCellOuterStatus.Unreveled:
+                    m_outerStatus = BoardCellOuterStatus.Marked;
+                    return;
+                case BoardCellOuterStatus.Marked:
+                    m_outerStatus = BoardCellOuterStatus.Unreveled;
+                    return;
+                default:
+                    return;
+            }
         }
     }
 }
