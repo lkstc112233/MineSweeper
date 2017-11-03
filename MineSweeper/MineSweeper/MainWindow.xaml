@@ -9,8 +9,15 @@
     <Grid>
         <Grid.Resources>
             <local:DebugConverter x:Key="emptyConverter"/>
+            <local:IsSameStateToVisibilityConverter x:Key="CheckStateConverter"/>
+            <BitmapImage x:Key="All_Source" UriSource="res/MST.png" />
         </Grid.Resources>
         <ContentPresenter Content="{Binding board}">
+            <ContentPresenter.Resources>
+                <CroppedBitmap x:Key="Unrevealed" Source="{StaticResource All_Source}" SourceRect="2,53,17,68"/>
+                <CroppedBitmap x:Key="Marked" Source="{StaticResource All_Source}" SourceRect="36,53,51,68"/>
+                <CroppedBitmap x:Key="Mine" Source="{StaticResource All_Source}" SourceRect="87,53,102,68"/>
+            </ContentPresenter.Resources>
             <ContentPresenter.ContentTemplate>
                 <DataTemplate>
                     <ItemsControl ItemsSource="{Binding m_board}">
@@ -32,8 +39,12 @@
                                             <Button Tag="{Binding}" 
                                                     Click="ClickOnCell"
                                                     MouseRightButtonUp="Button_MouseRightButtonUp" 
-                                                    MouseRightButtonDown="Button_MouseRightButtonDown" 
-                                                    Padding="7">
+                                                    MouseRightButtonDown="Button_MouseRightButtonDown">
+                                                <Grid>
+                                                    <Image Source="{StaticResource Unrevealed}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Unrevealed}}"/>
+                                                    <Image Source="{StaticResource Marked}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Marked}}"/>
+                                                    <Image Source="{StaticResource Mine}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Mine}}"/>
+                                                </Grid>
                                             </Button>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>

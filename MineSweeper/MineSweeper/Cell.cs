@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,19 @@ namespace MineSweeper
         Mine,
         Safe,
     }
-
-    public class Cell
+    
+    public enum CellOutlookEnum
     {
+        Mine,
+        Marked,
+        Unrevealed,
+    }
+
+    public class Cell : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string name) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
         public Cell(int x, int y)
         {
             this.x = x;
@@ -31,6 +42,18 @@ namespace MineSweeper
         public int y { get; set; }
         private BoardCellInnerStatus m_innerStatus;
         private BoardCellOuterStatus m_outerStatus;
+
+        private CellOutlookEnum m_Outlook;
+        public CellOutlookEnum Outlook
+        {
+            get { return m_Outlook; }
+            set
+            {
+                m_Outlook = value;
+                OnPropertyChanged("Outlook");
+            }
+        }
+
         public bool isMine
         {
             get { return m_innerStatus == BoardCellInnerStatus.Mine; }
