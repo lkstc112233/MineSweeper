@@ -26,6 +26,14 @@ namespace MineSweeper
         Marked,
         Unrevealed,
         Revealed_0,
+        Revealed_1,
+        Revealed_2,
+        Revealed_3,
+        Revealed_4,
+        Revealed_5,
+        Revealed_6,
+        Revealed_7,
+        Revealed_8,
     }
 
     public class Cell : INotifyPropertyChanged
@@ -41,6 +49,7 @@ namespace MineSweeper
 
         public int x { get; set; }
         public int y { get; set; }
+        public int mineNeighbors = 0;
         private BoardCellInnerStatus m_innerStatus = BoardCellInnerStatus.Safe;
         private BoardCellOuterStatus m_outerStatus = BoardCellOuterStatus.Unreveled;
         
@@ -55,8 +64,7 @@ namespace MineSweeper
                 if (m_innerStatus == BoardCellInnerStatus.Mine)
                     return CellOutlookEnum.Mine;
                 if (m_innerStatus == BoardCellInnerStatus.Safe)
-                    // Get Count;
-                    return CellOutlookEnum.Revealed_0;
+                    return CellOutlookEnum.Revealed_0 + mineNeighbors;
                 return CellOutlookEnum.Unrevealed;
             }
         }
@@ -64,6 +72,11 @@ namespace MineSweeper
         public bool isMine
         {
             get { return m_innerStatus == BoardCellInnerStatus.Mine; }
+        }
+
+        public void setMine()
+        {
+            m_innerStatus = BoardCellInnerStatus.Mine;
         }
 
         public bool reveal()
