@@ -39,38 +39,46 @@ namespace MineSweeper
         }
         public static DependencyProperty boardProperty = DependencyProperty.Register("board", typeof(Board), typeof(MainWindow));
 
+        public void NewGame()
+        {
+            board = new Board(Properties.Settings.Default.Height, Properties.Settings.Default.Width, Properties.Settings.Default.Mines);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
-            board = new Board(9,9,10);
+            NewGame();
         }
 
         private void ClickOnCell(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("X: " + ((sender as Button).Tag as Cell).x + ", Y: " + ((sender as Button).Tag as Cell).y);
-        }
-
-        private void RevealCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("Left Click:\nX: " + (e.Parameter as Cell).x + ", Y: " + (e.Parameter as Cell).y);
-        }
-
-        private void MarkCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("Right Click:\nX: " + (e.Parameter as Cell).x + ", Y: " + (e.Parameter as Cell).y);
+            board.Reveal(((sender as Button).Tag as Cell).x, ((sender as Button).Tag as Cell).y);
         }
 
         private void Button_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             (sender as Button).ReleaseMouseCapture();
             if ((sender as Button).IsMouseOver)
-                MessageBox.Show("Right Click:\nX: " + ((sender as Button).Tag as Cell).x + ", Y: " + ((sender as Button).Tag as Cell).y);
+            {
+                board.TryMark(((sender as Button).Tag as Cell).x, ((sender as Button).Tag as Cell).y);
+            }
         }
 
         private void Button_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             (sender as Button).CaptureMouse();
+        }
+
+        private void NewGame(object sender, RoutedEventArgs e)
+        {
+            NewGame();
+        }
+
+        private void ShowSettings(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.ShowDialog();
         }
     }
 

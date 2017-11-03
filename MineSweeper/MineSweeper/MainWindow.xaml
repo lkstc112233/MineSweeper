@@ -5,61 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MineSweeper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="CanMinimize"
+        WindowStyle="ToolWindow">
     <Grid>
         <Grid.Resources>
             <local:DebugConverter x:Key="emptyConverter"/>
             <local:IsSameStateToVisibilityConverter x:Key="CheckStateConverter"/>
             <BitmapImage x:Key="All_Source" UriSource="res/MST.png" />
         </Grid.Resources>
-        <ContentPresenter Content="{Binding board}">
-            <ContentPresenter.Resources>
-                <CroppedBitmap x:Key="Unrevealed" Source="{StaticResource All_Source}" SourceRect="2 53 15 15"/>
-                <CroppedBitmap x:Key="Marked" Source="{StaticResource All_Source}" SourceRect="36 53 15 15"/>
-                <CroppedBitmap x:Key="Mine" Source="{StaticResource All_Source}" SourceRect="87 53 15 15"/>
-                <CroppedBitmap x:Key="Safe_0" Source="{StaticResource All_Source}" SourceRect="19 53 15 15"/>
-            </ContentPresenter.Resources>
-            <ContentPresenter.ContentTemplate>
-                <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding m_board}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <ItemsControl ItemsSource="{Binding}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type local:Cell}">
-                                            <Button Tag="{Binding}" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Button Click="NewGame">New Game</Button>
+            <Button Click="ShowSettings">Settings</Button>
+        </StackPanel>
+        <GroupBox Header="GamePlay" Grid.Row="1">
+            <ContentPresenter Content="{Binding board}">
+                <ContentPresenter.Resources>
+                    <CroppedBitmap x:Key="Unrevealed" Source="{StaticResource All_Source}" SourceRect="2 53 15 15"/>
+                    <CroppedBitmap x:Key="Marked" Source="{StaticResource All_Source}" SourceRect="36 53 15 15"/>
+                    <CroppedBitmap x:Key="Mine" Source="{StaticResource All_Source}" SourceRect="87 53 15 15"/>
+                    <CroppedBitmap x:Key="Safe_0" Source="{StaticResource All_Source}" SourceRect="19 53 15 15"/>
+                    <CroppedBitmap x:Key="Safe_1" Source="{StaticResource All_Source}" SourceRect="2 70 15 15"/>
+                    <CroppedBitmap x:Key="Safe_2" Source="{StaticResource All_Source}" SourceRect="19 70 15 15"/>
+                    <CroppedBitmap x:Key="Safe_3" Source="{StaticResource All_Source}" SourceRect="36 70 15 15"/>
+                    <CroppedBitmap x:Key="Safe_4" Source="{StaticResource All_Source}" SourceRect="53 70 15 15"/>
+                    <CroppedBitmap x:Key="Safe_5" Source="{StaticResource All_Source}" SourceRect="70 70 15 15"/>
+                    <CroppedBitmap x:Key="Safe_6" Source="{StaticResource All_Source}" SourceRect="87 70 15 15"/>
+                    <CroppedBitmap x:Key="Safe_7" Source="{StaticResource All_Source}" SourceRect="104 70 15 15"/>
+                    <CroppedBitmap x:Key="Safe_8" Source="{StaticResource All_Source}" SourceRect="121 70 15 15"/>
+                </ContentPresenter.Resources>
+                <ContentPresenter.ContentTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding m_board}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type local:Cell}">
+                                                <Button Tag="{Binding}" 
                                                     Click="ClickOnCell"
                                                     MouseRightButtonUp="Button_MouseRightButtonUp" 
                                                     MouseRightButtonDown="Button_MouseRightButtonDown">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Grid>
-                                                            <Image Source="{StaticResource Unrevealed}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Unrevealed}}"/>
-                                                            <Image Source="{StaticResource Marked}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Marked}}"/>
-                                                            <Image Source="{StaticResource Mine}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Mine}}"/>
-                                                            <Image Source="{StaticResource Safe_0}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_0}}"/>
-                                                        </Grid>
-                                                    </ControlTemplate>
-                                                </Button.Template>
-                                            </Button>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </ContentPresenter.ContentTemplate>
-        </ContentPresenter>
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Grid>
+                                                                <Image Source="{StaticResource Unrevealed}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Unrevealed}}"/>
+                                                                <Image Source="{StaticResource Marked}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Marked}}"/>
+                                                                <Image Source="{StaticResource Mine}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Mine}}"/>
+                                                                <Image Source="{StaticResource Safe_0}" Visibility="{Binding Outlook, Converter={StaticResource CheckStateConverter}, ConverterParameter={x:Static local:CellOutlookEnum.Revealed_0}}"/>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ContentPresenter.ContentTemplate>
+            </ContentPresenter>
+        </GroupBox>
     </Grid>
 </Window>

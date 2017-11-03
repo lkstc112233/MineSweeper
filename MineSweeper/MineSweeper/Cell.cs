@@ -41,8 +41,8 @@ namespace MineSweeper
 
         public int x { get; set; }
         public int y { get; set; }
-        private BoardCellInnerStatus m_innerStatus;
-        private BoardCellOuterStatus m_outerStatus;
+        private BoardCellInnerStatus m_innerStatus = BoardCellInnerStatus.Safe;
+        private BoardCellOuterStatus m_outerStatus = BoardCellOuterStatus.Unreveled;
         
         public CellOutlookEnum Outlook
         {
@@ -83,12 +83,12 @@ namespace MineSweeper
             switch(m_outerStatus)
             {
                 case BoardCellOuterStatus.Unreveled:
-                    OnPropertyChanged("Outlook");
                     m_outerStatus = BoardCellOuterStatus.Marked;
+                    OnPropertyChanged("Outlook");
                     return;
                 case BoardCellOuterStatus.Marked:
-                    OnPropertyChanged("Outlook");
                     m_outerStatus = BoardCellOuterStatus.Unreveled;
+                    OnPropertyChanged("Outlook");
                     return;
                 default:
                     return;
